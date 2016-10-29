@@ -13,18 +13,30 @@ import byui.cit260.ghostStory.model.Location;
 import byui.cit260.ghostStory.model.Map;
 import byui.cit260.ghostStory.model.Player;
 import byui.cit260.ghostStory.model.Scene;
+import byui.cit260.ghostStory.view.StartProgramView;
 
 /**
  *
  * @author carsonbott
  */
 public class GhostStory {
+            
+        private static Game currentGame = null;
+        private static Player player = null;
+
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Player playerOne = new Player();
+        
+        // create StartProgramViewOrig and display the start program view
+        StartProgramView startProgramView = new StartProgramView();
+        startProgramView.displayStartProgramView();
+
+        
+        
+       /* Player playerOne = new Player();
         
         playerOne.setName("PlayerOne McPlayerOneFace");
         playerOne.setBestTime(4.00);
@@ -94,7 +106,24 @@ public class GhostStory {
         sceneOne.setClue("One the table is a CLUE");
         
         String sceneInfo = sceneOne.toString();
-        System.out.println(sceneInfo);
+        System.out.println(sceneInfo); */
     }
+
+    public static Game getCurrentGame() {
+        return currentGame;
+    }
+
+    public static void setCurrentGame(Game currentGame) {
+        GhostStory.currentGame = currentGame;
+    }
+
+    public static Player getPlayer() {
+        return player;
+    }
+
+    public static void setPlayer(Player player) {
+        GhostStory.player = player;
+    }
+    
     
 }
