@@ -42,7 +42,7 @@ public class HelpMenuView {
                 + "\nC = how to investigate clues"
                 + "\nT = how to Talk to ghosts"
                 + "\nL = map Legend"
-                + "\nQ = Quit back to MAIN MENU";
+                + "\nQ = Quit back to the last menu you were at";
     }
 
     private String getMenuOption() {

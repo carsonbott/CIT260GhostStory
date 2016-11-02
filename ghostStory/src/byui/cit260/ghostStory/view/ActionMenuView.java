@@ -11,11 +11,11 @@ import java.util.Scanner;
  *
  * @author carsonbott
  */
-public class GameMenuView {
+class ActionMenuView {
 
     private String menu;
     
-    public void displayGameMenuView() {
+    public void displayActionMenuView() {
         
         boolean done = false; // set flag to not done
         do {
@@ -30,20 +30,17 @@ public class GameMenuView {
         } while (!done);
     }
 
-    public GameMenuView() {
+    public ActionMenuView() {
         this.menu = "\n"
-                + "\n---------"
-                + "\nGAME MENU"
-                + "\n---------"  
-                + "\nV = View map"
-                + "\nM = Move"
-                + "\nC = investigate clues"
-                + "\nA = Action menu"
-                + "\nI = Inventory"
-                + "\nP = Progress"
+                + "\n-----------"
+                + "\nACTION MENU"
+                + "\n-----------"  
+                + "\nO = Open an unlocked door"
+                + "\nT = Talk to someone next to you"
+                + "\nP = Pick up an Item"
+                + "\nA = interAct with the environment"
                 + "\nH = Help Menu"
-                + "\nS = Save Game"
-                + "\nQ = Quit back to MAIN MENU";
+                + "\nQ = Quit back to GAME MENU";
     }
 
     private String getMenuOption() {
@@ -72,29 +69,20 @@ public class GameMenuView {
         choice = choice.toUpperCase();
         
         switch (choice) {
-            case "V": //view Map
-                this.mapView();
+            case "O": //open an unlocked door
+                this.openDoor();
                 break;
-            case "A": //action menu
-                this.displayActionMenu();
+            case "T": //talk to someone next to you
+                this.talk();
                 break;
-            case "M": //move
-                this.moveMenu();
+            case "P": //Pick up an item
+                this.pickUpItem();
                 break;
-            case "C": //investigate clues
-                this.investigateClues();
+            case "A": //interAct with the environement
+                this.interact();
                 break;
-            case "I": //inventory
-                this.displayInventoryList();
-                break;
-            case "P": //Progress
-                this.progress();
-                break;
-            case "H": //Help menu
+            case "H": //help menu
                 this.displayHelpMenu();
-                break;
-            case "S": //Save
-                this.saveGame();
                 break;
             default:
                 System.out.println("\n***Invalid selection, please enter a menu option***");
@@ -105,36 +93,20 @@ public class GameMenuView {
 
     }
 
-    private void mapView() {
-        System.out.println("\n***mapView called");
+    private void openDoor() {
+        System.out.println("\n***openDoor called***");
     }
 
-    private void moveMenu() {
-        System.out.println("\n***moveMenu called");
+    private void talk() {
+        System.out.println("\n***talk called***");
     }
 
-    private void displayActionMenu() {
-        // Create ActionMenuView object
-        ActionMenuView actionMenuView = new ActionMenuView();
-                
-        //display the action menu
-        actionMenuView.displayActionMenuView();  
+    private void pickUpItem() {
+        System.out.println("\n***pickUpItem called***");
     }
 
-    private void investigateClues() {
-        System.out.println("\n***investigate clues called");
-    }
-
-    private void displayInventoryList() {
-        System.out.println("\n***displayInventoryList called");
-    }
-
-    private void progress() {
-        System.out.println("\n***progress called");
-    }
-    
-    private void saveGame() {
-        System.out.println("*** saveGame function called***");  
+    private void interact() {
+        System.out.println("\n***interact called");
     }
 
     private void displayHelpMenu() {
