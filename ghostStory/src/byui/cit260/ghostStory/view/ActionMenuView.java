@@ -11,27 +11,11 @@ import java.util.Scanner;
  *
  * @author carsonbott
  */
-class ActionMenuView {
+class ActionMenuView extends View {
 
-    private String menu;
-    
-    public void displayActionMenuView() {
-        
-        boolean done = false; // set flag to not done
-        do {
-            // prompt for ang get PI's name
-            String menuOption = this.getMenuOption();
-            if (menuOption.toUpperCase().equals("Q")) // user wants to quit
-                return; // exit game
-            
-            // do the requested action and display the next view
-            done = this.doAction(menuOption);
-                    
-        } while (!done);
-    }
 
     public ActionMenuView() {
-        this.menu = "\n"
+        super("\n"
                 + "\n-----------"
                 + "\nACTION MENU"
                 + "\n-----------"  
@@ -40,35 +24,15 @@ class ActionMenuView {
                 + "\nP = Pick up an Item"
                 + "\nA = interAct with the environment"
                 + "\nH = Help Menu"
-                + "\nQ = Quit back to GAME MENU";
+                + "\nQ = Quit back to GAME MENU");
     }
 
-    private String getMenuOption() {
-    
-        Scanner keyboard = new Scanner(System.in); // get keyboard imput
-        String value = ""; // value to be returned
-        boolean valid = false; // initialize to not valid
-        
-        while (!valid) { // loop while an invalid value is entered
-            System.out.println("\n" + this.menu);
-            
-            value = keyboard.nextLine(); // get next line typed on keyboard
-            value = value.trim(); // trim off leading and traling blanks (spaces)
-            
-            if (value.length() < 1) { // value is blank
-                System.out.println("\nPlease enter a menu option");
-                continue;
-            }
-            break; // end loop
-        }
-        return value; // return the value entered
-    }
 
-    public boolean doAction(String choice) {
+    public boolean doAction(String value) {
         
-        choice = choice.toUpperCase();
+        value = value.toUpperCase();
         
-        switch (choice) {
+        switch (value) {
             case "O": //open an unlocked door
                 this.openDoor();
                 break;
@@ -114,7 +78,7 @@ class ActionMenuView {
         HelpMenuView helpMenuView = new HelpMenuView();
                 
         //display the help menu
-        helpMenuView.displayHelpMenuView();  
+        helpMenuView.display();  
     }
     
 }

@@ -11,27 +11,11 @@ import java.util.Scanner;
  *
  * @author carsonbott
  */
-public class GameMenuView {
+public class GameMenuView extends View {
 
-    private String menu;
-    
-    public void displayGameMenuView() {
-        
-        boolean done = false; // set flag to not done
-        do {
-            // prompt for ang get PI's name
-            String menuOption = this.getMenuOption();
-            if (menuOption.toUpperCase().equals("Q")) // user wants to quit
-                return; // exit game
-            
-            // do the requested action and display the next view
-            done = this.doAction(menuOption);
-                    
-        } while (!done);
-    }
 
     public GameMenuView() {
-        this.menu = "\n"
+        super("\n"
                 + "\n---------"
                 + "\nGAME MENU"
                 + "\n---------"  
@@ -43,35 +27,15 @@ public class GameMenuView {
                 + "\nP = Progress"
                 + "\nH = Help Menu"
                 + "\nS = Save Game"
-                + "\nQ = Quit back to MAIN MENU";
+                + "\nQ = Quit back to MAIN MENU");
     }
 
-    private String getMenuOption() {
-    
-        Scanner keyboard = new Scanner(System.in); // get keyboard imput
-        String value = ""; // value to be returned
-        boolean valid = false; // initialize to not valid
-        
-        while (!valid) { // loop while an invalid value is entered
-            System.out.println("\n" + this.menu);
-            
-            value = keyboard.nextLine(); // get next line typed on keyboard
-            value = value.trim(); // trim off leading and traling blanks (spaces)
-            
-            if (value.length() < 1) { // value is blank
-                System.out.println("\nPlease enter a menu option");
-                continue;
-            }
-            break; // end loop
-        }
-        return value; // return the value entered
-    }
 
-    public boolean doAction(String choice) {
+    public boolean doAction(String value) {
         
-        choice = choice.toUpperCase();
+        value = value.toUpperCase();
         
-        switch (choice) {
+        switch (value) {
             case "V": //view Map
                 this.mapView();
                 break;
@@ -118,7 +82,7 @@ public class GameMenuView {
         ActionMenuView actionMenuView = new ActionMenuView();
                 
         //display the action menu
-        actionMenuView.displayActionMenuView();  
+        actionMenuView.display();  
     }
 
     private void investigateClues() {
@@ -142,7 +106,7 @@ public class GameMenuView {
         HelpMenuView helpMenuView = new HelpMenuView();
                 
         //display the help menu
-        helpMenuView.displayHelpMenuView();  
+        helpMenuView.display();  
     }
     
 }

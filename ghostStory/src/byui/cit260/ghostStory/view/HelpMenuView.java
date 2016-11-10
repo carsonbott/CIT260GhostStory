@@ -13,27 +13,11 @@ import java.util.Scanner;
  *
  * @author carsonbott
  */
-public class HelpMenuView {
+public class HelpMenuView extends View {
 
-    private String menu;
-    
-    public void displayHelpMenuView() {
-        
-        boolean done = false; // set flag to not done
-        do {
-            // prompt for ang get PI's name
-            String menuOption = this.getMenuOption();
-            if (menuOption.toUpperCase().equals("Q")) // user wants to quit
-                return; // exit game
-            
-            // do the requested action and display the next view
-            done = this.doAction(menuOption);
-                    
-        } while (!done);
-    }
 
     public HelpMenuView() {
-        this.menu = "\n"
+        super("\n"
                 + "\n---------"
                 + "\nHELP MENU"
                 + "\n---------"  
@@ -42,35 +26,16 @@ public class HelpMenuView {
                 + "\nC = how to investigate clues"
                 + "\nT = how to Talk to ghosts"
                 + "\nL = map Legend"
-                + "\nQ = Quit back to the last menu you were at";
+                + "\nQ = Quit back to the last menu you were at");
     }
 
-    private String getMenuOption() {
     
-        Scanner keyboard = new Scanner(System.in); // get keyboard imput
-        String value = ""; // value to be returned
-        boolean valid = false; // initialize to not valid
-        
-        while (!valid) { // loop while an invalid value is entered
-            System.out.println("\n" + this.menu);
-            
-            value = keyboard.nextLine(); // get next line typed on keyboard
-            value = value.trim(); // trim off leading and traling blanks (spaces)
-            
-            if (value.length() < 1) { // value is blank
-                System.out.println("\nPlease enter a menu option");
-                continue;
-            }
-            break; // end loop
-        }
-        return value; // return the value entered
-    }
 
-    public boolean doAction(String choice) {
+    public boolean doAction(String value) {
         
-        choice = choice.toUpperCase();
+        value = value.toUpperCase();
         
-        switch (choice) {
+        switch (value) {
             case "G": //goal of the game
                 this.gameInfo();
                 break;
