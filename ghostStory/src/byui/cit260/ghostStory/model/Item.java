@@ -16,11 +16,21 @@ public class Item implements Serializable{
     
     private String name;
     private String description;
+    private int ammount; // doesnt have equals and hash code
 
     public Item() {
     }
     
     
+    
+
+    public int getAmmount() {
+        return ammount;
+    }
+
+    public void setAmmount(int ammount) {
+        this.ammount = ammount;
+    }
 
     public String getName() {
         return name;
@@ -69,8 +79,10 @@ public class Item implements Serializable{
 
     @Override
     public String toString() {
-        return "Item{" + "name=" + name + ", description=" + description + '}';
+        return "Item{" + "name=" + name + ", description=" + description + "ammount=" + ammount +'}';
     }
+
+    
     
     
     

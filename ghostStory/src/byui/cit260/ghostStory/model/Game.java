@@ -18,11 +18,47 @@ public class Game implements Serializable{
     
     private double totalTime;
     private String casesSolved;
+    private Player player;
+    private Item[] inventory;
+    private Scene[] scenes;
+    private Map map;   
+    
 
     public Game() {
     }
+
     
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
     
+    public Scene[] getScenes() {
+        return scenes;
+    }
+
+    public void setScenes(Scene[] scenes) {
+        this.scenes = scenes;
+    }
+    
+    public Item[] getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Item[] inventory) {
+        this.inventory = inventory;
+    }
+    
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
     public double getTotalTime() {
         return totalTime;

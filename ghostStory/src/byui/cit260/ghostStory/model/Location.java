@@ -6,6 +6,7 @@
 package byui.cit260.ghostStory.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -14,36 +15,62 @@ import java.util.Objects;
  */
 public class Location implements Serializable{
     
-    private double row;
-    private double column;
-    private String visited;
+    private int row;
+    private int column;
+    private boolean visited;
+    private Scene scene;
+    private ArrayList<Ghost> ghosts;
+    private LocationType locationType;
 
     public Location() {
     }
-    
-    
+
+    public LocationType getLocationType() {
+        return locationType;
+    }
+
+    public void setLocationType(LocationType locationType) {
+        this.locationType = locationType;
+    }
+        
+    public Scene getScene() {
+        return scene;
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
+
+    public ArrayList<Ghost> getGhosts() {
+        return ghosts;
+    }
+
+    public void setGhosts(ArrayList<Ghost> ghosts) {
+        this.ghosts = ghosts;
+    }
+   
 
     public double getRow() {
         return row;
     }
 
-    public void setRow(double row) {
-        this.row = row;
+    public void setRow(int row) {
+        this.row = (int) row;
     }
 
-    public double getColumn() {
+    public int getColumn() {
         return column;
     }
 
-    public void setColumn(double column) {
+    public void setColumn(int column) {
         this.column = column;
     }
 
-    public String getVisited() {
+    public boolean getVisited() {
         return visited;
     }
 
-    public void setVisited(String visited) {
+    public void setVisited(boolean visited) {
         this.visited = visited;
     }
 
@@ -84,6 +111,8 @@ public class Location implements Serializable{
     public String toString() {
         return "Location{" + "row=" + row + ", column=" + column + ", visited=" + visited + '}';
     }
+
+   
     
     
     

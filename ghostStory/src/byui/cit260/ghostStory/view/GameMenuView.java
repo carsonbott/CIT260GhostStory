@@ -5,6 +5,10 @@
  */
 package byui.cit260.ghostStory.view;
 
+import byui.cit260.ghostStory.model.Game;
+import byui.cit260.ghostStory.model.Item;
+import byui.cit260.ghostStory.model.Map;
+import ghoststory.GhostStory;
 import java.util.Scanner;
 
 /**
@@ -37,7 +41,7 @@ public class GameMenuView extends View {
         
         switch (value) {
             case "V": //view Map
-                this.mapView();
+                this.displayMap();
                 break;
             case "A": //action menu
                 this.displayActionMenu();
@@ -69,8 +73,16 @@ public class GameMenuView extends View {
 
     }
 
-    private void mapView() {
-        System.out.println("\n***mapView called");
+    private void displayMap() {
+        Map map = GhostStory.getCurrentGame().getMap();
+        
+       for(int row = 0; row < Map.ROW; row++) {
+            for(int column = 0; column < Map.COLUMN; column++) {
+                char locationType = map.getLocationAt(row, column).getLocationType().toString().charAt(0);
+                System.out.print(locationType + " ");
+            }
+            System.out.println("|");
+        }
     }
 
     private void moveMenu() {
@@ -90,7 +102,32 @@ public class GameMenuView extends View {
     }
 
     private void displayInventoryList() {
-        System.out.println("\n***displayInventoryList called");
+        StringBuilder line;
+        
+        Game game = GhostStory.getCurrentGame();
+        Item[] inventory = game.getInventory();
+        
+        System.out.println("\nINVENTORY"
+                + "==========");
+        line = new StringBuilder("                               ");
+        line.insert(0, "NAME");
+        line.insert(20, "AMMOUNT");
+        line.insert(40, "DESCRIPTION");
+        System.out.println(line.toString());
+        
+        // for each item
+        for (Item item : inventory) {
+            line = new StringBuilder("                             ");
+            line.insert(0, item.getName());
+            line.insert(23, item.getAmmount());
+            line.insert(43, item.getDescription());
+            
+            //DISPLAY the line
+            System.out.println(line.toString());
+        }
+        
+        
+        
     }
 
     private void progress() {
