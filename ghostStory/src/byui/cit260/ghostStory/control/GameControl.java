@@ -26,7 +26,7 @@ public class GameControl {
     public static Player createPlayer(String name) throws GameControlException {
         
         if (name == null) {
-            throw new GameControlException("You need to give the PI a name, yo!");
+            throw new GameControlException("You need to give the PI a name, yo!"); 
         }
         
         Player player = new Player();
