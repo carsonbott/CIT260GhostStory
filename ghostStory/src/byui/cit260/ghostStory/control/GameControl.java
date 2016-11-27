@@ -6,6 +6,7 @@
 package byui.cit260.ghostStory.control;
 
 import byui.cit260.ghostStory.control.MapControl.SceneType;
+import byui.cit260.ghostStory.exceptions.GameControlException;
 import byui.cit260.ghostStory.model.Game;
 import byui.cit260.ghostStory.model.Item;
 import byui.cit260.ghostStory.model.Location;
@@ -22,10 +23,10 @@ public class GameControl {
 
 
     
-    public static Player createPlayer(String name) {
+    public static Player createPlayer(String name) throws GameControlException {
         
         if (name == null) {
-            return null;
+            throw new GameControlException("You need to give the PI a name, yo!");
         }
         
         Player player = new Player();
