@@ -33,10 +33,7 @@ public class Map implements Serializable{
                 location.setColumn(column);
                 location.setVisited(false);
                 
-                
-                
-                
-                random.nextInt(LocationType.values().length);
+                location.setLocationType(LocationType.values()[random.nextInt(LocationType.values().length)]);
                 
                 matrix[row][column] = location;
                 
