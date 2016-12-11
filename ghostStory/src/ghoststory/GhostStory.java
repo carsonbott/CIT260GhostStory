@@ -14,6 +14,12 @@ import byui.cit260.ghostStory.model.Map;
 import byui.cit260.ghostStory.model.Player;
 import byui.cit260.ghostStory.model.Scene;
 import byui.cit260.ghostStory.view.StartProgramView;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,23 +29,99 @@ public class GhostStory {
             
         private static Game currentGame = null;
         private static Player player = null;
+        
+        private static PrintWriter outFile = null;
+        private static BufferedReader inFile = null;
+        
+        private static PrintWriter logFile = null;
+
+    public static PrintWriter getLogFile() {
+        return logFile;
+    }
+
+    public static void setLogFile(PrintWriter logFile) {
+        GhostStory.logFile = logFile;
+    }
+
+    public static PrintWriter getOutFile() {
+        return outFile;
+    }
+
+    public static void setOutFile(PrintWriter outFile) {
+        GhostStory.outFile = outFile;
+    }
+
+    public static BufferedReader getInFile() {
+        return inFile;
+    }
+
+    public static void setInFile(BufferedReader inFile) {
+        GhostStory.inFile = inFile;
+    }
 
 
     /**
      * @param args the command line arguments
      */
+    
+    
     public static void main(String[] args) {
         
+        try {
+            
+            // open character stream files for end user input and output
+            GhostStory.inFile =
+                    new BufferedReader(new InputStreamReader (System.in));
+            
+            GhostStory.outFile = new PrintWriter(System.out, true);
+            
+            // open log file
+            String filePath = "log.txt";
+            GhostStory.logFile = new PrintWriter(filePath);
+            
+            // create StartProgramViewOrig and display the start program view
+            StartProgramView startProgramView = new StartProgramView();
+            startProgramView.displayStartProgramView();
+            return;
+     
+        } catch (Throwable e) {
+            
+            System.out.println("Exception: " + e.toString() +
+                    "\nCause: " + e.getCause() +
+                    "\nMessage: " + e.getMessage());
+            
+            e.printStackTrace();;
+        } 
+        
+        finally {
+            
+            try {
+                if (GhostStory.inFile != null)
+                    GhostStory.inFile.close();
+                
+                if (GhostStory.outFile != null)
+                    GhostStory.outFile.close();
+                
+                if (GhostStory.logFile != null)
+                    GhostStory.logFile.close();
+                
+            } catch (IOException ex) {
+                System.out.println("Error closing files");
+                return;
+            }
+            
+        }
+        
         // create StartProgramViewOrig and display the start program view
-        StartProgramView startProgramView = new StartProgramView();
+       /* StartProgramView startProgramView = new StartProgramView();
         try {
             // create startProgramView and start proram
             startProgramView.displayStartProgramView();
         } catch (Throwable te) {
-            System.out.println(te.getMessage());
+            this.console.println(te.getMessage());
             te.printStackTrace();
             startProgramView.displayStartProgramView();
-        }
+        } */
         
 
         
@@ -50,7 +132,7 @@ public class GhostStory {
         playerOne.setBestTime(4.00);
         
         String playerInfo = playerOne.toString();
-        System.out.println(playerInfo);
+        this.console.println(playerInfo);
         
         
         Ghost ghostOne = new Ghost();
@@ -60,7 +142,7 @@ public class GhostStory {
         ghostOne.setCoordinates("(4,6)");
         
         String ghostInfo = ghostOne.toString();
-        System.out.println(ghostInfo);
+        this.console.println(ghostInfo);
         
         
         Item itemOne = new Item();
@@ -69,7 +151,7 @@ public class GhostStory {
         itemOne.setDescription("An old rusty skeleton key.");
         
         String itemInfo = itemOne.toString();
-        System.out.println(itemInfo);
+        this.console.println(itemInfo);
         
         
         Game gameOne = new Game();
@@ -78,7 +160,7 @@ public class GhostStory {
         gameOne.setCasesSolved("1/13");
         
         String gameInfo = gameOne.toString();
-        System.out.println(gameInfo);
+        this.console.println(gameInfo);
         
         
         Map mapOne = new Map();
@@ -87,7 +169,7 @@ public class GhostStory {
         mapOne.setColumnCount(15);
         
         String mapInfo = mapOne.toString();
-        System.out.println(mapInfo);
+        this.console.println(mapInfo);
         
         
         Location locationOne = new Location();
@@ -97,7 +179,7 @@ public class GhostStory {
         locationOne.setVisited("yes");
         
         String locationInfo = locationOne.toString();
-        System.out.println(locationInfo);
+        this.console.println(locationInfo);
         
         
         Door doorOne = new Door();
@@ -105,7 +187,7 @@ public class GhostStory {
         doorOne.setLocked("yes");
         
         String doorInfo = doorOne.toString();
-        System.out.println(doorInfo);
+        this.console.println(doorInfo);
         
         
         Scene sceneOne = new Scene();
@@ -114,7 +196,7 @@ public class GhostStory {
         sceneOne.setClue("One the table is a CLUE");
         
         String sceneInfo = sceneOne.toString();
-        System.out.println(sceneInfo); */
+        this.console.println(sceneInfo); */
     }
 
     public static Game getCurrentGame() {

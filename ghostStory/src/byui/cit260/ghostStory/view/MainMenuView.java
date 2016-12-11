@@ -37,7 +37,7 @@ public class MainMenuView extends View {
                 this.startNewGame();
                 break;
             case "L": //Load
-                this.startExistingGame();
+                this.loadExistingGame();
                 break;
             case "S": //Save
                 this.saveGame();
@@ -46,7 +46,7 @@ public class MainMenuView extends View {
                 this.displayHelpMenu();
                 break;
             default:
-                System.out.println("\n***Invalid selection, please enter a menu option***");
+                this.console.println("\n***Invalid selection, please enter a menu option***");
                 break;
         }
 
@@ -63,12 +63,34 @@ public class MainMenuView extends View {
         gameMenu.display();
     }
 
-    private void startExistingGame() {
-        System.out.println("*** startExistingGame function called***");    
+    private void loadExistingGame() {
+        //get name of the file to save game in
+        this.console.println("\n\nPlease enter the file path for where you want the game to be loaded from.");
+        String filePath = this.getInput();
+        
+        try {
+            // start the saved game
+            GameControl.getSavedGame(filePath);
+        } catch (Exception ex) {
+            ErrorView.display("MainMenuView", ex.getMessage());
+        }   
+        
+        // display the game menu
+        GameMenuView gameMenu = new GameMenuView();
+        gameMenu.display();
     }
 
     private void saveGame() {
-        System.out.println("*** saveGame function called***");  
+        //get name of the file to save game in
+        this.console.println("\n\nPlease enter the file path for where you want the game to be saved.");
+        String filePath = this.getInput();
+        
+        try {
+            // save the game to the file
+            GameControl.saveGame(GhostStory.getCurrentGame(), filePath);
+        } catch (Exception ex) {
+            ErrorView.display("MainMenuView", ex.getMessage());
+        }
     }
 
     private void displayHelpMenu() {

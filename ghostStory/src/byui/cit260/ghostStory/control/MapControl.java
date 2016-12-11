@@ -52,7 +52,7 @@ public class MapControl {
           
     }
 
-    private static Scene[] createScenes() {
+    static Scene[] createScenes() {
         
         Scene[] scenes = new Scene[SceneType.values().length];
         

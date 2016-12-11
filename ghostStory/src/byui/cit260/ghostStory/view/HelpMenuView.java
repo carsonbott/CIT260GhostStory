@@ -52,7 +52,7 @@ public class HelpMenuView extends View {
                 this.talkInfo();
                 break;
             default:
-                System.out.println("\n***Invalid selection, please enter a menu option***");
+                this.console.println("\n***Invalid selection, please enter a menu option***");
                 break;
         }
 
@@ -61,23 +61,23 @@ public class HelpMenuView extends View {
     }
 
     private void gameInfo() {
-        System.out.println("\n***GameInfo called");
+        this.console.println("\n***GameInfo called");
     }
 
     private void mapLegend() {
-        System.out.println("\n***mapLegend called");
+        this.console.println("\n***mapLegend called");
     }
 
     private void moveInfo() {
-        System.out.println("\n***moveInfo called");
+        this.console.println("\n***moveInfo called");
     }
 
     private void clueInfo() {
-        System.out.println("\n***clueInfo called");
+        this.console.println("\n***clueInfo called");
     }
 
     private void talkInfo() {
-        System.out.println("\n***TalkInfo called");
+        this.console.println("\n***TalkInfo called");
     }
 
 

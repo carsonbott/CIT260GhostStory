@@ -8,7 +8,13 @@ package byui.cit260.ghostStory.view;
 import byui.cit260.ghostStory.control.GameControl;
 import byui.cit260.ghostStory.exceptions.GameControlException;
 import byui.cit260.ghostStory.model.Player;
+import ghoststory.GhostStory;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,6 +23,9 @@ import java.util.Scanner;
 public class StartProgramView {
 
     private String promptMessage;
+    
+    protected final BufferedReader keyboard = GhostStory.getInFile();
+    protected final PrintWriter console = GhostStory.getOutFile();
 
     public StartProgramView() {
         this.promptMessage = "\nPlease enter the name of the Private Investigator: ";
@@ -26,7 +35,7 @@ public class StartProgramView {
 
     private void displayBanner() {
 
-        System.out.println(
+        this.console.println(
                 "\nAs a Private Investigator you get many"
                 + "\n strange cases, but none as strange as"
                 + "\n this one. Just a few days ago a client"
@@ -73,18 +82,22 @@ public class StartProgramView {
 
     private String getPlayersName() {
 
-        Scanner keyboard = new Scanner(System.in); // get keyboard imput
+        //Scanner keyboard = new Scanner(System.in); // get keyboard imput
         String value = ""; // value to be returned
         boolean valid = false; // initialize to not valid
 
         while (!valid) { // loop while an invalid value is entered
-            System.out.println("\n" + this.promptMessage);
+            this.console.println("\n" + this.promptMessage);
 
-            value = keyboard.nextLine(); // get next line typed on keyboard
+            try {
+                value = keyboard.readLine(); // get next line typed on keyboard
+            } catch (IOException ex) {
+                Logger.getLogger(StartProgramView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             value = value.trim(); // trim off leading and traling blanks (spaces)
 
             if (value.length() < 1) { // value is blank
-                System.out.println("\nYour invesigator needs a name, yo!");
+                this.console.println("\nYour invesigator needs a name, yo!");
                 continue;
             }
             break; // end loop
@@ -95,7 +108,7 @@ public class StartProgramView {
     private boolean doAction(String playersName) {
 
         if (playersName.length() < 2) {
-            System.out.println("\nInvalid playrer's name: "
+            ErrorView.display(this.getClass().getName(),"\nInvalid playrer's name: "
                     + "The name must be greater than one character in length");
             return false;
         }
@@ -105,7 +118,7 @@ public class StartProgramView {
             Player player = GameControl.createPlayer(playersName);
 
             if (player == null) { // iff unsuccessful
-                System.out.println("\nError creating player.");
+                ErrorView.display(this.getClass().getName(),"\nError creating player.");
                 return false;
             }
 
@@ -119,7 +132,7 @@ public class StartProgramView {
     }
 
     private void displayNextView(Player player) {
-        System.out.println("\nWelcome to Ghost Story " + player.getName()
+        this.console.println("\nWelcome to Ghost Story " + player.getName()
                 + "\n Continue if you dare..."
         );
 

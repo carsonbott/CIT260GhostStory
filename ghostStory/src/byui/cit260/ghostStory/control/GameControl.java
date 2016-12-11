@@ -13,7 +13,12 @@ import byui.cit260.ghostStory.model.Location;
 import byui.cit260.ghostStory.model.Map;
 import byui.cit260.ghostStory.model.Player;
 import byui.cit260.ghostStory.model.Scene;
+import byui.cit260.ghostStory.view.ErrorView;
 import ghoststory.GhostStory;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  *
@@ -46,11 +51,11 @@ public class GameControl {
         
         
         // create inventory and save in game
-        Item[] inventory = GameControl.createInventory();
+        Item[] inventory = InventoryControl.createInventory();
         game.setInventory(inventory);
         
         // create scenes and save in game
-        Scene[] scenes = GameControl.createScenes();
+        Scene[] scenes = MapControl.createScenes();
         game.setScenes(scenes);
         
         Map map = new Map(); // create and intialize new map
@@ -62,35 +67,60 @@ public class GameControl {
         // move everyone to their starting positions on the map
        // MapControl.moveToStartingLocation(map);
         
-    }
+    
 
-    private static Item[] createInventory() {
-        
-        //created array (list) of inventory items
-        Item[] inventory = new Item[3];
-        
-        Item key = new Item();
-        key.setName("Key");
-        key.setDescription("A old rusty skeleton key");
-        key.setAmmount(0);
-        inventory[ItemEnum.key.ordinal()] = key;
-        
-        Item sock = new Item();
-        sock.setName("Sock");
-        sock.setDescription("Old and crusty, this sock has not been worn (or washed) for years...");
-        sock.setAmmount(0);
-        inventory[ItemEnum.sock.ordinal()] = sock;
-        
-        Item book = new Item();
-        book.setName("Book");
-        book.setDescription("A dusty leather bound journal");
-        book.setAmmount(0);
-        inventory[ItemEnum.book.ordinal()] = book;
-        
-        return inventory;
+    
         
 
     }
+    
+    public static void saveGame(Game currentGame, String filePath)
+            throws GameControlException {
+        
+        try( FileOutputStream fops = new FileOutputStream(filePath)) {
+            ObjectOutputStream output = new ObjectOutputStream(fops);
+            
+            output.writeObject(currentGame); // write the game object out to file
+        }
+        catch(Exception e) {
+            throw new GameControlException(e.getMessage());
+        }
+    }
+
+    public static void getSavedGame(String filePath) {
+        Game game = null;
+      
+      try {
+          FileInputStream fips = new FileInputStream(filePath);
+          ObjectInputStream ols = new ObjectInputStream(fips);
+          
+          game = (Game) ols.readObject();
+          
+          //GhostStory.setCurrentGame(currentGame);
+         // GhostStory.setPlayer(game.getPlayer());
+    } catch (Exception e) {
+        ErrorView.display("GameControl", e.getMessage());
+    }
+      // close the output file
+      GhostStory.setCurrentGame(game); // save in GhostStory
+      
+    }
+    
+
+  /*  public static void saveGame(Game currentGame, String filePath) {
+        Game game = null;
+      
+      try {
+          FileInputStream fis = new FileImputStream(filePath);
+          ObjectInputStream ols = new ObjectInputStream(fips);
+          
+          game = (Game) ols.readObject();
+          
+          GhostStory.setCurrentGame(currentGame);
+          GhostStory.setPlayer(game.getPlayer());
+    } catch (Exception e) {
+        ErrorView.display("GameControl", e.getMessage());
+    } /*
 
    /* static void assignScenesToLocations(Map map, Scene[] scenes) {
         Location[][] locations = map.getMatrix();
@@ -104,16 +134,13 @@ public class GameControl {
         
     } */
     
-        public enum ItemEnum {
-        key,
-        sock,
-        book;
-    }
 
-    private static Scene[] createScenes() {
-    System.out.println("**** called createScenes() in GameControl ****");
-        return null;    
-    }
+
+   // private static Scene[] createScenes() {
+   // this.console.println("**** called createScenes() in GameControl ****");
+   //     return null;    
+   // }
     
+  
   
 }

@@ -49,7 +49,7 @@ class ActionMenuView extends View {
                 this.displayHelpMenu();
                 break;
             default:
-                System.out.println("\n***Invalid selection, please enter a menu option***");
+                this.console.println("\n***Invalid selection, please enter a menu option***");
                 break;
         }
 
@@ -58,19 +58,19 @@ class ActionMenuView extends View {
     }
 
     private void openDoor() {
-        System.out.println("\n***openDoor called***");
+        this.console.println("\n***openDoor called***");
     }
 
     private void talk() {
-        System.out.println("\n***talk called***");
+        this.console.println("\n***talk called***");
     }
 
     private void pickUpItem() {
-        System.out.println("\n***pickUpItem called***");
+        this.console.println("\n***pickUpItem called***");
     }
 
     private void interact() {
-        System.out.println("\n***interact called");
+        this.console.println("\n***interact called");
     }
 
     private void displayHelpMenu() {

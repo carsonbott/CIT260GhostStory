@@ -14,8 +14,8 @@ import java.util.Random;
  */
 public class Map implements Serializable{
     
-    public static final int ROW = 2;
-    public static final int COLUMN = 2;
+    public static final int ROW = 10;
+    public static final int COLUMN = 10;
     private Location[][] matrix = new Location[ROW][COLUMN];
     
 
@@ -45,7 +45,7 @@ public class Map implements Serializable{
     /*public void initilizeMap() {
         
        /* if (ROW < 1 || COLUMN < 1) {
-            System.out.println("The number of rows and columns must be over 0");
+            this.console.println("The number of rows and columns must be over 0");
             return;
         } 
         

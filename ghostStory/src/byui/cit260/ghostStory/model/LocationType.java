@@ -11,8 +11,6 @@ package byui.cit260.ghostStory.model;
  */
 public enum LocationType {
     NONE,
-    DOOR,
-    CLUE,
-    WALL;
+    CLUE;
     
 }

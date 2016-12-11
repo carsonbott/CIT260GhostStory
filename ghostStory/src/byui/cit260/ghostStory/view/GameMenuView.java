@@ -5,10 +5,12 @@
  */
 package byui.cit260.ghostStory.view;
 
+import byui.cit260.ghostStory.control.GameControl;
 import byui.cit260.ghostStory.model.Game;
 import byui.cit260.ghostStory.model.Item;
 import byui.cit260.ghostStory.model.Map;
 import ghoststory.GhostStory;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -55,6 +57,9 @@ public class GameMenuView extends View {
             case "I": //inventory
                 this.displayInventoryList();
                 break;
+            case "IO": //output
+                this.InventoryOutput();
+                break;
             case "P": //Progress
                 this.progress();
                 break;
@@ -65,7 +70,7 @@ public class GameMenuView extends View {
                 this.saveGame();
                 break;
             default:
-                System.out.println("\n***Invalid selection, please enter a menu option***");
+                this.console.println("\n***Invalid selection, please enter a menu option***");
                 break;
         }
 
@@ -79,14 +84,14 @@ public class GameMenuView extends View {
        for(int row = 0; row < Map.ROW; row++) {
             for(int column = 0; column < Map.COLUMN; column++) {
                 char locationType = map.getLocationAt(row, column).getLocationType().toString().charAt(0);
-                System.out.print(locationType + " ");
+                this.console.print(locationType + " ");
             }
-            System.out.println("|");
+            this.console.println("|");
         }
     }
 
     private void moveMenu() {
-        System.out.println("\n***moveMenu called");
+        this.console.println("\n***moveMenu called");
     }
 
     private void displayActionMenu() {
@@ -98,7 +103,7 @@ public class GameMenuView extends View {
     }
 
     private void investigateClues() {
-        System.out.println("\n***investigate clues called");
+        this.console.println("\n***investigate clues called");
     }
 
     private void displayInventoryList() {
@@ -107,23 +112,23 @@ public class GameMenuView extends View {
         Game game = GhostStory.getCurrentGame();
         Item[] inventory = game.getInventory();
         
-        System.out.println("\nINVENTORY"
-                + "==========");
-        line = new StringBuilder("                               ");
+        this.console.println("\nINVENTORY"
+                + "======================");
+        line = new StringBuilder("                                                              ");
         line.insert(0, "NAME");
-        line.insert(20, "AMMOUNT");
-        line.insert(40, "DESCRIPTION");
-        System.out.println(line.toString());
+        line.insert(10, "AMMOUNT");
+        line.insert(20, "DESCRIPTION");
+        this.console.println(line.toString());
         
         // for each item
         for (Item item : inventory) {
-            line = new StringBuilder("                             ");
+            line = new StringBuilder("                                                                 ");
             line.insert(0, item.getName());
-            line.insert(23, item.getAmmount());
-            line.insert(43, item.getDescription());
+            line.insert(13, item.getAmmount());
+            line.insert(23, item.getDescription());
             
             //DISPLAY the line
-            System.out.println(line.toString());
+            this.console.println(line.toString());
         }
         
         
@@ -131,11 +136,20 @@ public class GameMenuView extends View {
     }
 
     private void progress() {
-        System.out.println("\n***progress called");
+        this.console.println("\n***progress called");
     }
     
     private void saveGame() {
-        System.out.println("*** saveGame function called***");  
+        //get name of the file to save game in
+        this.console.println("\n\nPlease enter the file path for where you want the game to be saved.");
+        String filePath = this.getInput();
+        
+        try {
+            // save the game to the file
+            GameControl.saveGame(GhostStory.getCurrentGame(), filePath);
+        } catch (Exception ex) {
+            ErrorView.display("GameMenuView", ex.getMessage());
+        }  
     }
 
     private void displayHelpMenu() {
@@ -144,6 +158,40 @@ public class GameMenuView extends View {
                 
         //display the help menu
         helpMenuView.display();  
+    }
+
+    private void InventoryOutput() {
+        try {
+            String filePath = "inventory.txt";
+            PrintWriter output = new PrintWriter(filePath);
+            
+            StringBuilder line;
+        
+        Game game = GhostStory.getCurrentGame();
+        Item[] inventory = game.getInventory();
+        
+        output.println("\nINVENTORY"
+                + "======================");
+        line = new StringBuilder("                                                              ");
+        line.insert(0, "NAME");
+        line.insert(10, "AMMOUNT");
+        line.insert(20, "DESCRIPTION");
+        output.println(line.toString());
+        
+        // for each item
+        for (Item item : inventory) {
+            line = new StringBuilder("                                                                 ");
+            line.insert(0, item.getName());
+            line.insert(13, item.getAmmount());
+            line.insert(23, item.getDescription());
+            
+            //DISPLAY the line
+            output.println(line.toString());
+        }
+            
+        } catch (Exception e) {
+            ErrorView.display("GameMenuView", displayMessage);
+        }
     }
     
 }

@@ -5,7 +5,13 @@
  */
 package byui.cit260.ghostStory.view;
 
+import ghoststory.GhostStory;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,6 +20,9 @@ import java.util.Scanner;
 public abstract class View implements ViewInterface {
     
     protected String displayMessage;
+    
+    protected final BufferedReader keyboard = GhostStory.getInFile();
+    protected final PrintWriter console = GhostStory.getOutFile();
     
     public View() {
         
@@ -42,18 +51,23 @@ public abstract class View implements ViewInterface {
     @Override
     public String getInput() {
     
-        Scanner keyboard = new Scanner(System.in); // get keyboard imput
+        //Scanner keyboard = new Scanner(System.in); // get keyboard imput
         String value = null; // value to be returned
         boolean valid = false; // initialize to not valid
         
         while (!valid) { // loop while an invalid value is entered
-            System.out.println("\n" + this.displayMessage);
+            this.console.println("\n" + this.displayMessage);
             
-            value = keyboard.nextLine(); // get next line typed on keyboard
+            try {
+                value = this.keyboard.readLine(); // get next line typed on keyboard
+            } catch (IOException ex) {
+                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+            }
             value = value.trim(); // trim off leading and traling blanks (spaces)
             
             if (value.length() < 1) { // value is blank
-                System.out.println("\nPlease enter a menu option");
+                ErrorView.display(this.getClass().getName(),
+                        "\nPlease enter a menu option");
                 continue;
             }
             break; // end loop
